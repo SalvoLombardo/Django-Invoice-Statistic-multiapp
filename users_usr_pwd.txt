@@ -1,5 +1,0 @@
-amministratore (admin django) pwd Prova0000@
-
-admin1 (admin app)pwd Prova0000@
-
-peppepeluso (user)pwd Prova0000@
