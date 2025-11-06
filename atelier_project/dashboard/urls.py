@@ -8,7 +8,10 @@ from .views import (
     UpdateProductPage, AddNewCategoryView,
 
     invoice_create,invoice_detail,invoice_list,
-    invoice_pdf_admin,invoice_update
+    invoice_pdf_admin,invoice_update,
+
+
+    analytics_view
 )
 
 urlpatterns = [
@@ -32,5 +35,7 @@ urlpatterns = [
     path('invoices/new/', invoice_create, name='dashboard_invoice_create'),
     path('invoices/<int:pk>/pdf/', invoice_pdf_admin, name='dashboard_invoice_pdf'),
 
+    path('analytics/', analytics_view, name='analytics_dashboard'),
 ]
+
 

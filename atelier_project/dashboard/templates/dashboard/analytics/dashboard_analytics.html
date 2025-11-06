@@ -1,0 +1,15 @@
+<!-- templates/dashboard/analytics.html -->
+<h2>Statistiche di vendita</h2>
+
+<form method="get">
+  {{ form.as_p }}
+  <button type="submit">Filtra</button>
+</form>
+
+{% if graphic %}
+  <h3>Totale vendite: €{{ total_sales }}</h3>
+  <h4>Ordini totali: {{ total_orders }}</h4>
+  <img src="data:image/png;base64,{{ graphic }}" alt="Grafico vendite">
+{% else %}
+  <p>Nessun dato disponibile per questo intervallo.</p>
+{% endif %}

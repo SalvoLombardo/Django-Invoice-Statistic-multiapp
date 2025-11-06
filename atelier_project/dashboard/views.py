@@ -19,8 +19,8 @@ from .forms import InvoiceAdminForm
 ######Import for statistics section
 from django.utils import timezone
 from datetime import timedelta
-from .models import Order
-from .forms import DateRangeForm
+from shop.models import Order
+from shop.forms import DateRangeForm
 import matplotlib.pyplot as plt
 from io import BytesIO
 import base64
@@ -28,6 +28,11 @@ from django.db.models.functions import TruncDate
 from django.db.models import Sum
 
 
+
+
+import matplotlib
+matplotlib.use('Agg')  # Usa backend non interattivo
+import matplotlib.pyplot as plt
 
 #*******************************************************************************************************************************
 # DASHBOARD MENu
@@ -333,7 +338,7 @@ def analytics_view(request):
         'total_sales': sum(order.total for order in orders),
     }
 
-    return render(request, 'dashboard/analytics.html', context)
+    return render(request, 'dashboard/analytics/dashboard_analytics.html', context)
 
 
 
