@@ -45,3 +45,12 @@ class DateRangeForm(forms.Form):
         widget=forms.DateInput(attrs={'type': 'date'}),
         label="A"
     )
+
+
+
+
+
+class AddItemToCartForm(ModelForm):
+    class Meta:
+        model=CartItem
+        fields=['quantity']
