@@ -1,0 +1,40 @@
+
+    
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+    {% if user.is_authenticated %} 
+    <h2>Il tuo vecchio appuntamento era : "{{ appointment.activity }}" del {{ appointment.date }}?</h2>
+   <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Conferma modifiche</button>
+    </form> 
+    
+    
+    
+    
+       
+
+    {% else %}
+        <p>Non sei loggato. <a href="{% url 'login_client' %}">Accedi qui</a></p>
+    
+    
+    {% endif %}
+
+
+
+{% endblock %}

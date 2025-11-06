@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+
+{% block title %}Prenota appuntamento{% endblock %}
+
+{% block content %}
+<h2>Aggiungi una nuova categoria</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Conferma </button>
+</form>
+{% endblock %}
+
+
+

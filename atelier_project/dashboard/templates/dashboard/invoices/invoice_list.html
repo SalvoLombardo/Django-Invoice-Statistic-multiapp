@@ -1,0 +1,14 @@
+{% extends 'dashboard/base_dashboard.html' %}
+{% block content %}
+<h2>Fatture e Preventivi</h2>
+<a href="{% url 'dashboard_invoice_create' %}"> Crea nuova</a>
+<ul>
+  {% for inv in invoices %}
+    <li>
+      <a href="{% url 'dashboard_invoice_detail' inv.pk %}">
+        {{ inv.get_document_type_display }} #{{ inv.id }} – {{ inv.user.username }} – {{ inv.amount }} €
+      </a>
+    </li>
+  {% endfor %}
+</ul>
+{% endblock %}

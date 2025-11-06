@@ -1,0 +1,9 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block dashboard_content %}
+<h2>Gestione Shop</h2>
+<ul>
+    <li><a href="{% url 'dashboard_add_category' %}">➕ Aggiungi Categoria</a></li>
+    <li><a href="{% url 'dashboard_add_product' %}">➕ Aggiungi Prodotto</a></li>
+    <li><a href="{% url 'dashboard_update_product_category' %}">✏️ Modifica Prodotti</a></li>
+</ul>
+{% endblock %}

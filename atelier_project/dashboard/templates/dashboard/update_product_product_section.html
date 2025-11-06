@@ -1,0 +1,35 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Homepage
+{% endblock %}
+
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block content %}
+
+    <h2>{{ category.name }}</h2>
+    <p>{{ category.description }}</p>
+    
+        
+    <h3>Prodotti</h3>
+    <ul>
+        {% for product in products %}
+    <li>
+        {{ product.name }} - {{ product.price }}
+        
+        <a href="{% url 'update_product_page' product.pk %}">Aggiorna Prodotto</a>
+    </li>
+{% empty %}
+    <li>Nessun prodotto disponibile in questa categoria.</li>
+{% endfor %}
+    </ul>
+
+
+{% endblock %}

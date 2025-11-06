@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block title %}Prenota appuntamento{% endblock %}
+
+{% block content %}
+<h2>Prenota un nuovo appuntamento</h2>
+
+<form method="post">
+    {% csrf_token %}
+    {{ book_appointment_form.as_p }}
+    <button type="submit">Conferma prenotazione</button>
+</form>
+{% endblock %}

@@ -1,0 +1,42 @@
+
+    
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+    {% if user.is_authenticated %}           
+        <h2>I tuoi appuntamenti</h2>
+        <a href="{% url 'book_appointment_user' %}">+ Nuovo appuntamento</a>
+        <ul>
+        {% for app in appointments %}
+            <li>
+            {{ app.activity }} - {{ app.date }}
+            <a href="{% url 'appointment_update_user' app.pk %}">Modifica</a> |
+            <a href="{% url 'appointment_delete_user' app.pk %}">Elimina</a>
+            </li>
+        {% empty %}
+            <li>Nessun appuntamento.</li>
+        {% endfor %}
+        </ul>
+
+    {% else %}
+        <p>Non sei loggato. <a href="{% url 'login_client' %}">Accedi qui</a></p>
+    
+    
+    {% endif %}
+
+
+
+{% endblock %}

@@ -1,0 +1,75 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Homepage
+{% endblock %}
+
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+    {% if user.is_authenticated %}
+        <p>Ciao {{ user.username }}!</p>
+        <a href="{% url 'logout' %}">Logout</a>
+
+
+    <br>
+    <br>
+    <br>
+
+    <div class="card-grid">
+        <a href="{% url 'client_mesuraments_table' %}" class="card-link">
+            <div class="card-box">
+                <h3>Le tue misure</h3>
+                <p>Visualizza e aggiorna le tue misure registrate</p>
+            </div>
+        </a>
+
+        <a href="{% url 'appointment_dashboard' %}" class="card-link">
+            <div class="card-box">
+                <h3>Appuntamenti</h3>
+                <p>Gestisci/Controlla i tuoi prossimi appuntamenti</p>
+            </div>
+        </a>
+
+        <a href="#" class="card-link">
+            <div class="card-box">
+                <h3>Wishlist</h3>
+                <p>Guarda i tuoi modelli preferiti</p>
+            </div>
+        </a>
+
+
+        <a href="#" class="card-link">
+            <div class="card-box">
+                <h3>iCrochet</h3>
+                <p>Il nostro social dove pubblicare i tuoi lavori</p>
+            </div>
+        </a>
+
+
+    </div>
+
+
+        
+    {% else %}
+        <p>Non sei loggato. <a href="{% url 'login_client' %}">Accedi qui</a></p>
+    
+    
+    {% endif %}
+
+        <a href="{% url 'shop_categories_list' %}" class="card-link">
+            <div class="card-box">
+                <h3>Shop Online</h3>
+                <p>Acquista e ricevi direttamente a casa tua</p>
+            </div>
+        </a>
+
+{% endblock %}

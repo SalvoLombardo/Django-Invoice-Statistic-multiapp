@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+{% block content %}
+<style>
+.dashboard-container {
+    display: flex;
+    min-height: 90vh;
+}
+.sidebar {
+    width: 220px;
+    background-color: #1e1e2f;
+    color: white;
+    padding: 20px;
+}
+.sidebar a {
+    display: block;
+    color: white;
+    text-decoration: none;
+    padding: 8px 0;
+}
+.sidebar a:hover {
+    background-color: #333;
+}
+.dashboard-content {
+    flex: 1;
+    padding: 30px;
+    background-color: #f8f8f8;
+}
+</style>
+
+<div class="dashboard-container">
+    <div class="sidebar">
+        <h3>Dashboard</h3>
+        <a href="{% url 'dashboard_home' %}"> Home</a>
+        <a href="{% url 'dashboard_shop_menu' %}">Shop</a>
+        <a href="{% url 'dashboard_atelier_menu' %}">Atelier</a>
+        <a href="{% url 'dashboard_invoice_list' %}"> Fatture & Preventivi</a>
+    </div>
+
+    <div class="dashboard-content">
+        {% block dashboard_content %}{% endblock %}
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,40 @@
+
+    
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+
+{% endblock %}
+
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+    {% if user.is_authenticated %} 
+    <h2>Vuoi davvero eliminare l'appuntamento "{{ appointment.activity }}" del {{ appointment.date }}?</h2>
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Conferma eliminazione</button>
+        <a href="{% url 'appointment_list_user' %}">Annulla</a>
+    </form>
+    
+    
+    
+    
+       
+
+    {% else %}
+        <p>Non sei loggato. <a href="{% url 'login_client' %}">Accedi qui</a></p>
+    
+    
+    {% endif %}
+
+
+
+{% endblock %}

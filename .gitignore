@@ -1,0 +1,43 @@
+# Cartelle e file generali di Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.venv/
+env/
+venv/
+VENV/
+venv.bak/
+/bin/
+/include/
+/lib/
+/lib64/
+/Scripts/
+/share/
+
+# File di Virtual Environment
+pip-log.txt
+pip-delete-this-dir.txt
+.tox/
+.coverage
+.cache
+.pytest_cache/
+
+# File di editor o IDE
+.vscode/
+.idea/
+*.swp
+*~
+
+# Configurazioni e log di Django
+/media
+/static_collected # Se usi 'collectstatic'
+db.sqlite3 # Evita di committare il DB di sviluppo
+*.log
+*.pot
+
+# Secret e Credenziali (IMPORTANTE!)
+# I file contenenti chiavi segrete, credenziali API, ecc., DEVONO essere ignorati
+# Adatta se usi nomi di file diversi (es. settings_local.py, .env, ecc.)
+local_settings.py
+.env

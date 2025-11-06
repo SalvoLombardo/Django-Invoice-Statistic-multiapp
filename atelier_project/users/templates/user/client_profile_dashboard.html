@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+{% block title %}Dashboard Cliente {% endblock %}
+
+{% block content %}
+<div class="profile-section">
+    <h2>Profilo di {{ user.username }}</h2>
+        <button>
+            <a href="{% url 'client_mesuraments_table' %}">Vai alle tue misure</a>
+        </button>
+
+</div>
+{% endblock %}

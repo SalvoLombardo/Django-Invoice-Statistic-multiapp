@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Homepage
+{% endblock %}
+
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+    {% if user.is_authenticated %}
+        <p>Ciao {{ user.username }}!</p>
+        <a href="{% url 'logout' %}">Logout</a>
+
+
+    <br>
+    <br>
+    <br>
+
+    <div class="card-grid">
+        <a href="{% url 'add_new_product'%}" class="card-link">
+            <div class="card-box">
+                <h3>Aggiungi prodotto</h3>
+                <p>Aggiungi un nuovo prodotto in shop</p>
+            </div>
+        </a>
+
+        <a href="{% url 'update_product_category_section' %}" class="card-link">
+            <div class="card-box">
+                <h3>Modifica prodotto</h3>
+                <p>Modifica un prodotto in shop</p>
+            </div>
+        </a>
+
+        <a href="{% url 'add_new_category' %}" class="card-link">
+            <div class="card-box">
+                <h3>Aggiungi Categoria</h3>
+                <p>abcdefg</p>
+            </div>
+        </a>
+
+        
+    </div>
+
+
+        
+    {% else %}
+        <p>Non sei loggato. <a href="{% url 'login_client' %}">Accedi qui</a></p>
+    
+    
+    {% endif %}
+
+
+
+ 
+{% endblock %}

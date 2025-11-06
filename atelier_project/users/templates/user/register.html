@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block title %}
+Registrazione Cliente
+{% endblock %}
+
+
+{% block head %}
+{% endblock %}
+
+
+{% block content %}
+<h2>Registrazione nuovo cliente</h2>
+    <form method="POST">
+        {% csrf_token %}
+        <fieldset>
+            <legend>Dati utente</legend>
+            {{ user_form.as_p }}
+        </fieldset>
+        <fieldset>
+            <legend>Dati cliente</legend>
+            {{ client_form.as_p }}
+        </fieldset>
+        <button type="submit">Registrati</button>
+    </form>
+{% endblock %}
