@@ -41,3 +41,7 @@ db.sqlite3 # Evita di committare il DB di sviluppo
 # Adatta se usi nomi di file diversi (es. settings_local.py, .env, ecc.)
 local_settings.py
 .env
+
+user_usr_pwd.txt
+da fare.txt
+block_content_sample.txt
