@@ -42,6 +42,6 @@ db.sqlite3 # Evita di committare il DB di sviluppo
 local_settings.py
 .env
 
-user_usr_pwd.txt
+users_usr_pwd.txt
 da fare.txt
 block_content_sample.txt
