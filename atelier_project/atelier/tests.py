@@ -1,6 +1,7 @@
 from django.test import TestCase
 from django.contrib.auth.models import User
-from .models import Appointment, Client
+from .models import Appointment
+from users.models import Client
 from datetime import datetime, timedelta
 from django.utils import timezone
 

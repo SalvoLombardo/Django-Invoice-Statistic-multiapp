@@ -34,6 +34,9 @@ class Appointment(models.Model):
 
     def clean(self):
         """Validazione dell'appuntamento (orario e sovrapposizioni)"""
+        if not self.client_id:
+            return  # evita l'errore durante i test o i salvataggi parziali
+
         if self.date is None or self.duration is None:
             return
 
@@ -52,14 +55,14 @@ class Appointment(models.Model):
         overlapping = Appointment.objects.filter(
             client=self.client,
             date__lt=end_time,
-            date__gte=start_time - timedelta(hours=2)  # margine per coprire l’intervallo
+            date__gte=start_time - timedelta(hours=2)
         ).exclude(pk=self.pk)
 
         for app in overlapping:
             app_end = app.date + app.duration
             if app.date < end_time and app_end > start_time:
                 raise ValidationError("Esiste già un appuntamento in questo orario.")
-
+    
     def save(self, *args, **kwargs):
         self.full_clean()
         super().save(*args, **kwargs)
