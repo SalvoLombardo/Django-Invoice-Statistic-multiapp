@@ -16,6 +16,9 @@ from reportlab.pdfgen import canvas
 from billing.models import Invoice
 from .forms import InvoiceAdminForm
 
+from users.decorators import admin_required
+from users.mixins import AdminRequiredMixin
+
 ######Import for statistics section
 from django.utils import timezone
 from datetime import timedelta
@@ -38,32 +41,21 @@ import matplotlib.pyplot as plt
 # DASHBOARD MENU
 #*******************************************************************************************************************************
 
-@login_required
+@admin_required
 def dashboard_home(request):
-    if request.user.client_profile.role != 'ADMIN':
-        messages.error(request, "Accesso negato.")
-        return redirect('homepage')
+    
     return render(request, 'dashboard/home.html')
 
-@login_required
-def dashboard_shop_menu(request):
-    if request.user.client_profile.role != 'ADMIN':
-        messages.error(request, "Accesso negato.")
-        return redirect('homepage')
-    return render(request, 'dashboard/shop_menu.html')
 
-@login_required
+
+@admin_required
 def dashboard_atelier_menu(request):
-    if request.user.client_profile.role != 'ADMIN':
-        messages.error(request, "Accesso negato.")
-        return redirect('homepage')
+    
     return render(request, 'dashboard/atelier_menu.html')
 
-@login_required
+@admin_required
 def dashboard_billing_menu(request):
-    if request.user.client_profile.role != 'ADMIN':
-        messages.error(request, "Accesso negato.")
-        return redirect('homepage')
+    
     return render(request, 'dashboard/billing_menu.html')
 
 
@@ -75,29 +67,22 @@ def dashboard_billing_menu(request):
 #*******************************************************************************************************************************
 # SHOP for Admin
 #*******************************************************************************************************************************
-@login_required
+@admin_required
 def dashboard_shop_menu(request):
-    if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
+    
     return render(request,'dashboard/dashboard_shop_menu.html')
 
 #----------------------------------
 # CREATE Category section (admin)
-class AddNewCategoryView(LoginRequiredMixin, View):
+class AddNewCategoryView(AdminRequiredMixin, View):
     template_name='dashboard/add_new_category.html'
     def get(self, request):
-        if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
         
         form= AddNewCategoryAdmin()
         return render(request,self.template_name, {'form':form})
 
     def post(self, request):
-        if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
+        
         
         form= AddNewCategoryAdmin(request.POST)
         if form.is_valid():
@@ -111,21 +96,16 @@ class AddNewCategoryView(LoginRequiredMixin, View):
 
 #----------------------------------
 # UPDATE Product section (admin)
-class AddNewProductView(LoginRequiredMixin,View):
+class AddNewProductView(AdminRequiredMixin,View):
     template_name='dashboard/add_new_product.html'
     
     def get(self, request):
-        if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
-    
+        
         form= AddOrUpdateNewProductAdmin()
         return render(request,self.template_name, {'form':form})
 
     def post(self, request):
-        if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
+        
         
         form= AddOrUpdateNewProductAdmin(request.POST)
         if form.is_valid():
@@ -139,21 +119,17 @@ class AddNewProductView(LoginRequiredMixin,View):
 
 #----------------------------------
 # UPDATE Product section (admin)
-class UpdateProductPage(LoginRequiredMixin, View):
+class UpdateProductPage(AdminRequiredMixin, View):
     template_name = 'dashboard/update_product_page.html'
 
     def get(self, request, pk):
-        if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
+        
         product = get_object_or_404(Product, pk=pk)
         form = AddOrUpdateNewProductAdmin(instance=product)
         return render(request, self.template_name, {'form': form, 'product': product})
     
     def post(self, request, pk):
-        if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
+        
         product = get_object_or_404(Product, pk=pk)
         form = AddOrUpdateNewProductAdmin(request.POST, instance=product)
         if form.is_valid():
@@ -163,19 +139,15 @@ class UpdateProductPage(LoginRequiredMixin, View):
         else:
             messages.error(request, 'Errore durante l’aggiornamento del prodotto.')
             return render(request, self.template_name, {'form': form, 'product': product})
-@login_required
+
+
+@admin_required
 def update_product_category_section(request):
-    if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
-    
     categories = Category.objects.all()
     return render(request, 'dashboard/update_product_category_section.html', {'categories': categories})
-@login_required
+
+@admin_required
 def update_product_product_section(request, slug):
-    if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
     category = get_object_or_404(Category, slug=slug)
     products = Product.objects.filter(category=category)
     return render(request, 'dashboard/update_product_product_section.html', {'category': category, 'products': products})
@@ -187,33 +159,22 @@ def update_product_product_section(request, slug):
 # INVOICE Section
 #*******************************************************************************************************************************
 
-@login_required
+@admin_required
 def invoice_list(request):
-    if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
+    
     invoices = Invoice.objects.all().order_by('-date')
     return render(request, 'dashboard/invoices/invoice_list.html', {'invoices': invoices})
 
 
-@login_required
+@admin_required
 def invoice_detail(request, pk):
-    if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
-    
-
     invoice = get_object_or_404(Invoice, pk=pk)
     return render(request, 'dashboard/invoices/invoice_detail.html', {'invoice': invoice})
 
 
-@login_required
+@admin_required
 def invoice_create(request):
-    if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
     
-
     if request.method == 'POST':
         form = InvoiceAdminForm(request.POST)
         if form.is_valid():
@@ -224,11 +185,9 @@ def invoice_create(request):
     return render(request, 'dashboard/invoices/invoice_form.html', {'form': form})
 
 
-@login_required
+@admin_required
 def invoice_update(request, pk):
-    if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
+    
     
     invoice = get_object_or_404(Invoice, pk=pk)
     if request.method == 'POST':
@@ -241,11 +200,8 @@ def invoice_update(request, pk):
     return render(request, 'dashboard/invoices/invoice_form.html', {'form': form})
 
 
-@login_required
+@admin_required
 def invoice_pdf_admin(request, pk):
-    if request.user.client_profile.role != 'ADMIN':
-            messages.error(request,"Attenzione non hai i permessi")
-            return redirect('homepage')
     
     
     invoice = get_object_or_404(Invoice, pk=pk)
@@ -261,7 +217,7 @@ def invoice_pdf_admin(request, pk):
 #*******************************************************************************************************************************
 
 
-
+@admin_required
 def analytics_view(request):
     #Creating some default data just to be sure
     start_date = timezone.now() - timedelta(days=30)
