@@ -1,4 +1,4 @@
-# 🧶 Crochet
+#  Crochet
 
 [![Python](https://img.shields.io/badge/Python-3.12-blue.svg)](https://www.python.org/)
 [![Django](https://img.shields.io/badge/Django-5.x-success.svg)](https://www.djangoproject.com/)
@@ -76,14 +76,16 @@ DATABASE_URL=postgresql://user:password@localhost:5432/crochet
 python manage.py migrate
 python manage.py runserver
 
-Then visit → http://127.0.0.1:8000/ 🎉
+Then visit → http://127.0.0.1:8000/ 
 
-⸻
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
 
 Code Highlights
 
-AdminRequiredMixin
 
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
+AdminRequiredMixin
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
 A mixin used to protect admin-only views (class-based):
 
 from django.contrib.auth.mixins import UserPassesTestMixin
@@ -104,10 +106,9 @@ def dashboard_view(request):
     ...
 
 
-⸻
-
-🧮 Aggregations & Analytics
-
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
+Aggregations & Analytics
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
 Using annotate, Sum, and TruncDate to calculate daily sales totals:
 
 from django.db.models import Sum
@@ -121,9 +122,10 @@ daily_sales = (
 )
 
 
-⸻
 
-📆 No Overlapping Appointments
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
+No Overlapping Appointments
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
 
 existing = Appointment.objects.filter(
     date=appointment_date,
@@ -134,20 +136,20 @@ if existing.exists():
     raise ValidationError("This time slot is already booked.")
 
 
-⸻
 
-🧾 Invoice PDF with WeasyPrint
-
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
+ Invoice PDF with WeasyPrint
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
 from weasyprint import HTML
 
 html = render_to_string("invoice_template.html", {"order": order})
 pdf = HTML(string=html).write_pdf()
 
 
-⸻
 
-📊 Admin Dashboard
-
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
+ Admin Dashboard
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
 A data-driven view showing summarized insights like:
 	•	Total sales per day
 	•	Top clients and top products
@@ -157,14 +159,17 @@ All built with Django ORM and optimized query aggregation.
 
 ⸻
 
-🌍 Demo (Coming Soon)
+• Demo (Coming Soon)
 
-🚀 Hosted on Railway
+• Hosted on Railway
 
-🔗 Live Demo: ....
+• Live Demo: ....
 
-🧪 Demo Credentials:
 
+
+⸻⸻⸻⸻⸻⸻
+• Demo Credentials:
+⸻⸻⸻⸻⸻⸻
 Admin:
 username: admin
 password: Yoursecretpassword!
@@ -177,18 +182,18 @@ password: Yoursecretpassword!
 
 ⸻
 
-🖼️ Screenshots ------------------------
+• Screenshots ------------------------
 
 ⸻
 
-🧭 Future Improvements
-	•	🛍️ Add product categories & image upload
-	•	💳 Integrate Stripe for payments
+ Future Improvements
+	•	Add product categories & image upload
+	•	Integrate Stripe for payments
 	
 
 ⸻
 
-🧑‍💻 Author
+• Author
 
 Salvatore Lombardo
 - Guitarist • Software Developer • Music Teacher • Artistic Director 
@@ -198,7 +203,7 @@ Salvatore Lombardo
 
 ⸻
 
-⚖️ License
+ License
 
 This project is open source and intended for learning and portfolio purposes.
 Feel free to fork, modify, or expand this repository.
@@ -211,5 +216,5 @@ Feel free to fork, modify, or expand this repository.
 
 
 
-⸻
+
 
