@@ -15,12 +15,12 @@
 </p>
 
 <p align="center">
-  <a href="#-demo">🌍 Demo</a> •
-  <a href="#-setup">⚙️ Setup</a> •
-  <a href="#-features">🚀 Features</a> •
-  <a href="#-code-highlights">💡 Code Highlights</a> •
-  <a href="#-future-improvements">🧭 To-Do</a> •
-  <a href="#-license">⚖️ License</a>
+  <a href="#-demo"> Demo</a> •
+  <a href="#-setup"> Setup</a> •
+  <a href="#-features"> Features</a> •
+  <a href="#-code-highlights"> Code Highlights</a> •
+  <a href="#-future-improvements"> To-Do</a> •
+  <a href="#-license"> License</a>
 </p>
 
 ---
