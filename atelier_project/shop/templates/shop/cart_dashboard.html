@@ -1,0 +1,43 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Homepage
+{% endblock %}
+
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block content %}
+    <h2>Il tuo Carrello</h2>
+        {% if cart_items %}
+            {% for item in cart_items %}
+                <div class="profile-section">
+                    {{ item.product.name }} ({{ item.quantity }})
+                </div>
+            {% endfor %}
+
+
+            <form method="post" action="{% url 'cart_dashboard' %}">
+                {% csrf_token %}
+                {{ form_confirm.as_p }}
+            <button type="submit">Conferma Carello</button>
+            </form>
+
+            <form method="post" action="{% url 'deactivate_cart' carts.pk %}">
+                {% csrf_token %}
+            <button type="submit">Cancella Carello</button>
+            </form>
+    
+    
+        {% else %}
+            <p>Non ci sono elementi</p>
+        {% endif %}
+
+
+
+{% endblock %}
