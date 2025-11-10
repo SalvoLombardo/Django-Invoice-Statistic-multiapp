@@ -25,5 +25,6 @@ urlpatterns = [
     path('shop/', include('shop.urls')),
     path('billing/', include('billing.urls')),
     path("dashboard/", include("dashboard.urls")),
+    path("crochet/", include('crochet.urls'))
 
 ]

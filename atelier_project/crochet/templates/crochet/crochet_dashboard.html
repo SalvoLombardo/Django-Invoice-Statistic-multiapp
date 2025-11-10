@@ -1,0 +1,44 @@
+
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Homepage
+{% endblock %}
+
+
+{% block head %}
+
+{% endblock %}
+
+
+{% block content %}
+
+
+    {% if user.is_authenticated %}
+    <h4>Here you'll find a social network section where every your client can post his/her work made with your products</h4>
+
+
+    <div class="card-grid">
+        <a href="#" class="card-link">
+            <div class="card-box">
+                <h3>Coming soon</h3>
+                <p>This section will be implemented soon as possible</p>
+            </div>
+        </a>
+
+       
+
+
+    </div>
+
+
+        
+    {% else %}
+        <p>Non sei loggato. <a href="{% url 'login_client' %}">Accedi qui</a></p>
+    
+    
+    {% endif %}
+
+
+{% endblock %}
