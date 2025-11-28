@@ -44,7 +44,7 @@ class Appointment(models.Model):
             OPENING_HOURS["morning_start"] <= self.date.hour < OPENING_HOURS["morning_end"]
             or OPENING_HOURS["afternoon_start"] <= self.date.hour < OPENING_HOURS["afternoon_end"]
         ):
-            raise ValidationError("Prenotazione fuori orario di apertura.")
+            raise ValidationError("Reservations outside of opening hours.")
 
         if self.date < timezone.now():
             raise ValidationError("Non puoi prenotare nel passato.")

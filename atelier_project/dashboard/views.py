@@ -274,7 +274,7 @@ def analytics_view(request):
     # Creating the statistic graph
     fig, ax = plt.subplots()
     ax.plot(days, totals, marker='o')
-    ax.set_title('Vendite giornaliere')
+    ax.set_title('Daily sales')
     ax.set_xlabel('Data')
     ax.set_ylabel('Totale (€)')
     plt.tight_layout()

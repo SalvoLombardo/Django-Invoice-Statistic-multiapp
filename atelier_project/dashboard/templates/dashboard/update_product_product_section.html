@@ -24,7 +24,7 @@ Homepage
     <li>
         {{ product.name }} - {{ product.price }}
         
-        <a href="{% url 'update_product_page' product.pk %}">Aggiorna Prodotto</a>
+        <a href="{% url 'update_product_page' product.pk %}">Update Product</a>
     </li>
 {% empty %}
     <li>Nessun prodotto disponibile in questa categoria.</li>

@@ -20,8 +20,8 @@ Homepage
 <form method="post">
     {% csrf_token %}
     {{ form.as_p }}
-    <button type="submit">Salva modifiche</button>
-    <a href="{% url 'dashboard_shop_menu' %}">Annulla</a>
+    <button type="submit">Save changes</button>
+    <a href="{% url 'dashboard_shop_menu' %}">Abort</a>
 </form>
 
 {% endblock %}

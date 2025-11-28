@@ -1,7 +1,7 @@
 {% extends 'dashboard/base_dashboard.html' %}
 {% block content %}
-<h2>Fatture e Preventivi</h2>
-<a href="{% url 'dashboard_invoice_create' %}"> Crea nuova</a>
+<h2>Invoices and Estimates</h2>
+<a href="{% url 'dashboard_invoice_create' %}"> Create New</a>
 <ul>
   {% for inv in invoices %}
     <li>

@@ -74,7 +74,7 @@ class AddItemToCartView(LoginRequiredMixin, View):
             product.stock -= quantity
             product.save()
 
-            messages.success(request, f"{product.name} aggiunto al carrello!")
+            messages.success(request, f"{product.name} added to cart!")
             return redirect('shop_categories_list')
 
         return redirect('homepage')

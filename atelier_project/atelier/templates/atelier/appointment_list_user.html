@@ -17,22 +17,22 @@
 
 
     {% if user.is_authenticated %}           
-        <h2>I tuoi appuntamenti</h2>
-        <a href="{% url 'book_appointment_user' %}">+ Nuovo appuntamento</a>
+        <h2>Your appointments</h2>
+        <a href="{% url 'book_appointment_user' %}">+ New appointment</a>
         <ul>
         {% for app in appointments %}
             <li>
             {{ app.activity }} - {{ app.date }}
-            <a href="{% url 'appointment_update_user' app.pk %}">Modifica</a> |
-            <a href="{% url 'appointment_delete_user' app.pk %}">Elimina</a>
+            <a href="{% url 'appointment_update_user' app.pk %}">Edit</a> |
+            <a href="{% url 'appointment_delete_user' app.pk %}">Delete</a>
             </li>
         {% empty %}
-            <li>Nessun appuntamento.</li>
+            <li>No appointment booked.</li>
         {% endfor %}
         </ul>
 
     {% else %}
-        <p>Non sei loggato. <a href="{% url 'login_client' %}">Accedi qui</a></p>
+        <p>You're not logged in . <a href="{% url 'login_client' %}">Login here</a></p>
     
     
     {% endif %}

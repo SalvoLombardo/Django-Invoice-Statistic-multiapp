@@ -13,7 +13,7 @@ Homepage
 
 
 {% block content %}
-    <h2>Il tuo Carrello</h2>
+    <h2>Your Cart</h2>
         {% if cart_items %}
             {% for item in cart_items %}
                 <div class="profile-section">
@@ -25,17 +25,17 @@ Homepage
             <form method="post" action="{% url 'cart_dashboard' %}">
                 {% csrf_token %}
                 {{ form_confirm.as_p }}
-            <button type="submit">Conferma Carello</button>
+            <button type="submit">Confirm Cart</button>
             </form>
 
             <form method="post" action="{% url 'deactivate_cart' carts.pk %}">
                 {% csrf_token %}
-            <button type="submit">Cancella Carello</button>
+            <button type="submit">Delete Cart</button>
             </form>
     
     
         {% else %}
-            <p>Non ci sono elementi</p>
+            <p>There are no elements</p>
         {% endif %}
 
 

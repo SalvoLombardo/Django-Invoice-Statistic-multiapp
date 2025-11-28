@@ -14,7 +14,7 @@ Homepage
 
 {% block content %}
 
-    <h2>Le nostre categorie</h2>
+    <h2>Our Categories</h2>
     <div class="card-grid">
         {% for category in categories %}
         <a href="{% url 'shop_category_detail' category.slug %}" class="card-link">
@@ -24,7 +24,7 @@ Homepage
             </div>
         </a>
         {% empty %}
-        <p>Nessuna categoria disponibile.</p>
+        <p>No categories available.</p>
         {% endfor %}
     </div>
 

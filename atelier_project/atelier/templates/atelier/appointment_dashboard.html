@@ -22,22 +22,15 @@ Homepage
     <div class="card-grid">
         <a href="{% url 'book_appointment_user' %}" class="card-link">
             <div class="card-box">
-                <h3>Nuovo Appuntamento</h3>
-                <p>Aggiungi un nuovo appuntamento</p>
+                <h3>New appointment </h3>
+                <p>Create a new appointment</p>
             </div>
         </a>
 
         <a href="{% url 'appointment_list_user' %}" class="card-link">
             <div class="card-box">
-                <h3>I tuoi appuntamenti</h3>
-                <p>Consulta o modifica i tuoi appuntamenti</p>
-            </div>
-        </a>
-
-        <a href="#" class="card-link">
-            <div class="card-box">
-                <h3></h3>
-                <p></p>
+                <h3>User appointments</h3>
+                <p>View or Update your appointments</p>
             </div>
         </a>
 
@@ -48,7 +41,7 @@ Homepage
 
         
     {% else %}
-        <p>Non sei loggato. <a href="{% url 'login_client' %}">Accedi qui</a></p>
+        <p>You're not logged in. <a href="{% url 'login_client' %}">Login here</a></p>
     
     
     {% endif %}

@@ -9,17 +9,17 @@ Registrazione Cliente
 
 
 {% block content %}
-<h2>Registrazione nuovo cliente</h2>
+<h2>New customer registration</h2>
     <form method="POST">
         {% csrf_token %}
         <fieldset>
-            <legend>Dati utente</legend>
+            <legend>User data</legend>
             {{ user_form.as_p }}
         </fieldset>
         <fieldset>
-            <legend>Dati cliente</legend>
+            <legend>Client Data</legend>
             {{ client_form.as_p }}
         </fieldset>
-        <button type="submit">Registrati</button>
+        <button type="submit">Register</button>
     </form>
 {% endblock %}

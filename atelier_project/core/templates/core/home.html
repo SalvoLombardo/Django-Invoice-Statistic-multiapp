@@ -16,7 +16,7 @@ Homepage
 
 
     {% if user.is_authenticated %}
-        <p>Ciao {{ user.username }}!</p>
+        <p>Hello {{ user.username }}!</p>
         <a href="{% url 'logout' %}">Logout</a>
 
 
@@ -27,15 +27,15 @@ Homepage
     <div class="card-grid">
         <a href="{% url 'client_mesuraments_table' %}" class="card-link">
             <div class="card-box">
-                <h3>Le tue misure</h3>
-                <p>Visualizza e aggiorna le tue misure registrate</p>
+                <h3>Your Mesurements</h3>
+                <p>Show/Update your Measurements</p>
             </div>
         </a>
 
         <a href="{% url 'appointment_dashboard' %}" class="card-link">
             <div class="card-box">
-                <h3>Appuntamenti</h3>
-                <p>Gestisci/Controlla i tuoi prossimi appuntamenti</p>
+                <h3>Your appointments</h3>
+                <p>Show/Update your Appointments</p>
             </div>
         </a>
 
@@ -44,7 +44,8 @@ Homepage
         <a href="{% url 'crochet_dashboard' %}" class="card-link">
             <div class="card-box">
                 <h3>SocialCrochet</h3>
-                <p>Il nostro social dove pubblicare i tuoi lavori</p>
+                <p>
+Our social network where you can publish your works</p>
             </div>
         </a>
 
@@ -54,7 +55,7 @@ Homepage
 
         
     {% else %}
-        <p>Non sei loggato. <a href="{% url 'login_client' %}">Accedi qui</a></p>
+        <p>You're not logged in. <a href="{% url 'login_client' %}">Login here</a></p>
     
     
     {% endif %}
@@ -62,7 +63,7 @@ Homepage
         <a href="{% url 'shop_categories_list' %}" class="card-link">
             <div class="card-box">
                 <h3>Shop Online</h3>
-                <p>Acquista e ricevi direttamente a casa tua</p>
+                <p>Our Shop Online</p>
             </div>
         </a>
 

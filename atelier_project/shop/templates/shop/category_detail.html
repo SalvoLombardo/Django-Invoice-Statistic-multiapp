@@ -17,7 +17,7 @@ Homepage
     <h2>{{ category.name }}</h2>
     <p>{{ category.description }}</p>
 
-    <h3>Prodotti</h3>
+    <h3>Products</h3>
     <ul>
         {% for product in products %}
         <div>
@@ -25,7 +25,7 @@ Homepage
             <form method="post" action="{% url 'add_to_cart' product.id %}">
             {% csrf_token %}
             {{ form.quantity }}
-            <button type="submit">Aggiungi al carrello</button>
+            <button type="submit">Add to Cart</button>
             </form>
         </div>
         {% endfor %}

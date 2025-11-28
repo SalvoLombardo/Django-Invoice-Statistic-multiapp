@@ -17,10 +17,10 @@
 
 
     {% if user.is_authenticated %} 
-    <h2>Vuoi davvero eliminare l'appuntamento "{{ appointment.activity }}" del {{ appointment.date }}?</h2>
+    <h2>Do you really want to delete : "{{ appointment.activity }}" del {{ appointment.date }}?</h2>
     <form method="post">
         {% csrf_token %}
-        <button type="submit">Conferma eliminazione</button>
+        <button type="submit">Confirm</button>
         <a href="{% url 'appointment_list_user' %}">Annulla</a>
     </form>
     

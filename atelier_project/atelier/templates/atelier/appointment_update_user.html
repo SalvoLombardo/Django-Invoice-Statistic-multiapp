@@ -17,11 +17,11 @@
 
 
     {% if user.is_authenticated %} 
-    <h2>Il tuo vecchio appuntamento era : "{{ appointment.activity }}" del {{ appointment.date }}?</h2>
+    <h2>You're old appointment was : "{{ appointment.activity }}" del {{ appointment.date }}?</h2>
    <form method="post">
         {% csrf_token %}
         {{ form.as_p }}
-        <button type="submit">Conferma modifiche</button>
+        <button type="submit">Confirm changes</button>
     </form> 
     
     
