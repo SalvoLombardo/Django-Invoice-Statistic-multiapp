@@ -30,7 +30,7 @@ pip-delete-this-dir.txt
 *~
 
 # Configurazioni e log di Django
-/media
+
 /static_collected # Se usi 'collectstatic'
 db.sqlite3 # Evita di committare il DB di sviluppo
 *.log
