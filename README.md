@@ -46,10 +46,20 @@ Focused on ORM optimization, class-based views, and advanced model relationships
 
 
 ## - Media 
-1. ![Demo Invoice](./media/Admin_Invoice.gif)
-
 ---
-
+1. ![User Book](./media/User_book_appointment.gif)  
+Here is a demo showing how the user books an appointment, including a case where the appointment falls outside opening hours.
+---
+2. ![Demo Invoice](./media/Admin_Invoice.gif)  
+Here is a demo showing how the admin can create invoices from customer appointments.
+---
+3. ![Analytic section](./media/Analytics.PNG)  
+Analytics section.
+---
+4. ![Admin product](./media/Admin_add_product.gif)  
+Here the admin adds new products.
+---
+Or go to `./media`.
 
 ##  Setup
 
