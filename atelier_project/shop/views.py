@@ -21,6 +21,9 @@ def show_category_detail(request, slug):
 
 class AddItemToCartView(LoginRequiredMixin, View):
     def post(self, request, product_id):
+        
+
+        
         form = AddItemToCartForm(request.POST)
         product = get_object_or_404(Product, id=product_id)
 

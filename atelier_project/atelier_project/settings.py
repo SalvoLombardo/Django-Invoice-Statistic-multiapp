@@ -28,6 +28,10 @@ DEBUG = True
 ALLOWED_HOSTS = []
 
 
+
+#Redirect if not user logged in
+
+LOGIN_URL = '/users/login_client/'
 # Application definition
 
 INSTALLED_APPS = [
