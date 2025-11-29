@@ -44,7 +44,12 @@ Focused on ORM optimization, class-based views, and advanced model relationships
 -  **Invoice generation** with **WeasyPrint**
 -  **PostgreSQL** as the main database for real production reliability
 
+
+## - Media 
+1. ![Demo Invoice](./media/Admin_Invoice.gif)
+
 ---
+
 
 ##  Setup
 
