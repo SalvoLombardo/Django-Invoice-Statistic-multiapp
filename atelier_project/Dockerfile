@@ -5,9 +5,11 @@ ENV PYTHONUNBUFFERED=1
 
 WORKDIR /app
 
-# Librerie di sistema per WeasyPrint o altre dipendenze
 RUN apt-get update && apt-get install -y \
     build-essential \
+    gcc \
+    postgresql-client \
+    libpq-dev \
     libffi-dev \
     libcairo2 \
     libpango-1.0-0 \
@@ -19,16 +21,15 @@ RUN apt-get update && apt-get install -y \
     python3-dev \
     && rm -rf /var/lib/apt/lists/*
 
-# Copiamo requirements
-COPY requirements.txt /app/requirements.txt
+COPY requirements.txt /app/
+RUN pip install --upgrade pip
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copiamo il resto del progetto
-COPY . .
+COPY . /app/
 
-# Creiamo la cartella staticfiles (volume)
+COPY wait-for-db.py /app/
+RUN chmod +x /app/wait-for-db.py
+
 RUN mkdir -p /app/staticfiles
 
-# Non facciamo collectstatic durante il build: lo faremo a runtime
-
-CMD ["gunicorn", "atelier_project.wsgi:application", "--bind", "0.0.0.0:8000"]
+EXPOSE 8000
