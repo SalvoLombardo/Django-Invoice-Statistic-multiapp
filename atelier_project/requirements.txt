@@ -8,6 +8,7 @@ cycler==0.12.1
 Django==5.2.7
 dotenv==0.9.9
 fonttools==4.60.1
+gunicorn==23.0.0
 kiwisolver==1.4.9
 matplotlib==3.10.7
 numpy==2.3.4

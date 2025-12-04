@@ -30,7 +30,6 @@ ALLOWED_HOSTS = []
 
 
 #Redirect if not user logged in
-
 LOGIN_URL = '/users/login_client/'
 # Application definition
 
@@ -64,11 +63,11 @@ MIDDLEWARE = [
 
 ROOT_URLCONF = 'atelier_project.urls'
 
-
-#----
 STATIC_URL = '/static/'
-STATICFILES_DIRS = [BASE_DIR / 'static']
-#-------
+STATICFILES_DIRS = [
+    BASE_DIR / 'static',  # cartella per dev
+]
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # cartella collectstatic
 
 TEMPLATES = [
     {
@@ -98,11 +97,11 @@ load_dotenv()
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'django_atelier',         
-        'USER': os.environ.get('DB_USER'),       
-        'PASSWORD': os.environ.get('DB_USER'),       
-        'HOST': 'localhost',            
-        'PORT': '5432',                 
+        'NAME': os.environ.get('POSTGRES_DB'),
+        'USER': os.environ.get('POSTGRES_USER'),
+        'PASSWORD': os.environ.get('POSTGRES_PASSWORD'),
+        'HOST': os.environ.get('POSTGRES_HOST'),
+        'PORT': '5432',
     }
 }
 
@@ -140,7 +139,6 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/5.2/howto/static-files/
 
-STATIC_URL = 'static/'
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.2/ref/settings/#default-auto-field

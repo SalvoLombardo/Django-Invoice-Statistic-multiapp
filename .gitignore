@@ -48,3 +48,7 @@ block_content_sample.txt
 
 
 
+.DS_Store
+
+.env.local
+.env.docker
