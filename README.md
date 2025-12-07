@@ -186,12 +186,12 @@ All built with Django ORM and optimized query aggregation.
 • Demo Credentials:
 ⸻⸻⸻⸻⸻⸻
 Admin:
-username: admin
-password: Yoursecretpassword!
+username: the_admin1
+password: Superpowerfulpassword123@
 
 User:
-username: user
-password: Yoursecretpassword!
+username: the_user1
+password: Superpowerfulpassword123@
 
 
 
