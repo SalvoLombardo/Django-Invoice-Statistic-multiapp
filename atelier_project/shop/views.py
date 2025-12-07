@@ -136,12 +136,16 @@ class CartDashboardView(LoginRequiredMixin, View):
             cart.is_active = False
             cart.save()
 
-            messages.success(request, "Ordine confermato con successo!")
+            messages.success(request, "Success!")
             return redirect('homepage')
         
         
-        cart_items = CartItem.objects.filter(user=request.user)
+        client = request.user.client_profile
+        cart = Cart.objects.filter(client=client, is_active=True).first()
+        cart_items = cart.items.all() if cart else []
+
         return render(request, self.template_name, {
+            "carts": cart,
             "cart_items": cart_items,
             "form_confirm": form_confirm,
         })
