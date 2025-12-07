@@ -62,7 +62,7 @@ class AddItemToCartForm(ModelForm):
 
 class ConfirmCartForm(forms.Form):
     confirm = forms.BooleanField(
-        required=True,
+        required=False,
         initial=True,
         widget=forms.HiddenInput()
     )
