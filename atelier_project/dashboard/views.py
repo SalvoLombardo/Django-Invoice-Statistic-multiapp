@@ -153,7 +153,7 @@ class UpdateProductPage(AdminRequiredMixin, View):
 def update_product_category_section(request):
     categories = cache.get('admin_categories')
     if categories is None:
-        categories = list(Category.objects.all())
+        categories = list(Category.objects.values('id', 'name', 'slug', 'description'))
         cache.set('admin_categories', categories, 60 * 60)  # 1 ora
     return render(request, 'dashboard/update_product_category_section.html', {'categories': categories})
 
@@ -174,7 +174,15 @@ def update_product_product_section(request, slug):
 def invoice_list(request):
     invoices = cache.get('invoice_list')
     if invoices is None:
-        invoices = list(Invoice.objects.all().order_by('-date'))
+        invoices = [
+            {
+                'id': inv.id,
+                'document_type_display': inv.get_document_type_display(),
+                'username': inv.user.username,
+                'amount': inv.amount,
+            }
+            for inv in Invoice.objects.select_related('user').order_by('-date')
+        ]
         cache.set('invoice_list', invoices, 30 * 60)  # 30 min
     return render(request, 'dashboard/invoices/invoice_list.html', {'invoices': invoices})
 

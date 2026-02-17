@@ -12,7 +12,7 @@ from django.core.cache import cache
 def show_shop_categories_list(request):
     categories = cache.get('shop_categories')
     if categories is None:
-        categories = list(Category.objects.all())
+        categories = list(Category.objects.values('id', 'name', 'slug', 'description'))
         cache.set('shop_categories', categories, 60 * 60)  # 1 ora
     return render(request, 'shop/categories_list.html', {'categories': categories})
 
@@ -21,8 +21,14 @@ def show_category_detail(request, slug):
     data = cache.get(cache_key)
     if data is None:
         category = get_object_or_404(Category, slug=slug)
-        products = list(Product.objects.filter(category=category, stock__gt=0))
-        data = {'category': category, 'products': products}
+        products = list(
+            Product.objects.filter(category=category, stock__gt=0)
+            .values('id', 'name', 'model_name', 'color', 'price')
+        )
+        data = {
+            'category': {'name': category.name, 'slug': category.slug, 'description': category.description},
+            'products': products,
+        }
         cache.set(cache_key, data, 30 * 60)  # 30 min
     form = AddItemToCartForm()
     return render(request, 'shop/category_detail.html', {**data, 'form': form})

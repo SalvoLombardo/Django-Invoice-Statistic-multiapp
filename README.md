@@ -5,7 +5,8 @@
 [![PostgreSQL](https://img.shields.io/badge/Database-PostgreSQL-informational.svg)](https://www.postgresql.org/)
 [![License](https://img.shields.io/badge/License-Open%20Source-green.svg)](#-license)
 [![Status](https://img.shields.io/badge/Status-Active-brightgreen.svg)](#)
-[![Deploy](https://img.shields.io/badge/Deploy-Railway-purple.svg)](https://railway.app)
+[![Redis](https://img.shields.io/badge/Cache-Redis-DC382D.svg)](https://redis.io/)
+[![Deploy](https://img.shields.io/badge/Deploy-AWS%20EC2-FF9900.svg)](https://aws.amazon.com/ec2/)
 
 ---
 
@@ -42,7 +43,9 @@ Focused on ORM optimization, class-based views, and advanced model relationships
 -  **Analytics Dashboard** using `annotate`, `aggregate`, and `TruncDate`
 -  **Role-based Access** via `AdminRequiredMixin` and decorators
 -  **Invoice generation** with **WeasyPrint**
+-  **Redis Caching** with `django-redis` for optimized response times
 -  **PostgreSQL** as the main database for real production reliability
+-  **CI/CD** with GitHub Actions auto-deploy to AWS EC2
 
 
 ## - Media 
@@ -139,6 +142,36 @@ daily_sales = (
 
 
 ⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
+Redis Caching
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
+
+The app uses **Redis** as a caching backend via `django-redis` to reduce database queries and speed up response times.
+
+**Architecture:**
+- Redis runs as a Docker container alongside PostgreSQL, Django, and Nginx
+- Cache backend is configured in `settings.py` with `django_redis.cache.RedisCache`
+- Data is cached as **serialized dicts** (not ORM objects) for smaller memory footprint and safer cache invalidation
+
+**What is cached:**
+| View | Cache Key | TTL | Data |
+|------|-----------|-----|------|
+| Category list | `shop_categories` | 1 hour | `values('id', 'name', 'slug', 'description')` |
+| Category detail | `category_{slug}` | 30 min | Category dict + product list |
+| Analytics | `analytics_{start}_{end}` | 1 hour | Chart (base64) + totals |
+| Invoice list | `invoice_list` | 30 min | Serialized invoice dicts |
+
+**Cache invalidation** happens automatically when data changes:
+
+from django.core.cache import cache
+
+# After creating/updating a product:
+cache.delete('shop_categories')
+cache.delete(f'category_{product.category.slug}')
+
+# After confirming an order (affects analytics):
+cache.delete_pattern('analytics_*')
+
+⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
 No Overlapping Appointments
 ⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
 
@@ -176,9 +209,9 @@ All built with Django ORM and optimized query aggregation.
 
 • Demo (Coming Soon)
 
-• Hosted on Railway
+• Hosted on AWS EC2
 
-• Live Demo: ....
+• Live Demo: http://13.61.209.228
 
 
 

@@ -17,11 +17,11 @@
         <tbody>
             {% for inv in invoices %}
             <tr>
-                <td>{{ inv.get_document_type_display }}</td>
+                <td>{{ inv.document_type_display }}</td>
                 <td>#{{ inv.id }}</td>
-                <td>{{ inv.user.username }}</td>
+                <td>{{ inv.username }}</td>
                 <td>&euro;{{ inv.amount }}</td>
-                <td><a href="{% url 'dashboard_invoice_detail' inv.pk %}" class="btn btn-sm btn-outline-primary">View</a></td>
+                <td><a href="{% url 'dashboard_invoice_detail' inv.id %}" class="btn btn-sm btn-outline-primary">View</a></td>
             </tr>
             {% empty %}
             <tr>
