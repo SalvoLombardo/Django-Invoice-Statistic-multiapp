@@ -160,16 +160,20 @@ The app uses **Redis** as a caching backend via `django-redis` to reduce databas
 | Analytics | `analytics_{start}_{end}` | 1 hour | Chart (base64) + totals |
 | Invoice list | `invoice_list` | 30 min | Serialized invoice dicts |
 
-**Cache invalidation** happens automatically when data changes:
+**Cache invalidation** is handled via **Django signals** (`post_save`, `post_delete`), so the cache is automatically cleared whenever a model is saved or deleted — regardless of whether the change comes from a view, the admin panel, or the shell:
 
+# shop/signals.py
+from django.db.models.signals import post_save, post_delete
+from django.dispatch import receiver
 from django.core.cache import cache
+from .models import Product
 
-# After creating/updating a product:
-cache.delete('shop_categories')
-cache.delete(f'category_{product.category.slug}')
+@receiver([post_save, post_delete], sender=Product)
+def invalidate_product_cache(sender, instance, **kwargs):
+    cache.delete(f'category_{instance.category.slug}')
+    cache.delete('shop_categories')
 
-# After confirming an order (affects analytics):
-cache.delete_pattern('analytics_*')
+Signals are registered in each app's `AppConfig.ready()` method.
 
 ⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻⸻
 No Overlapping Appointments

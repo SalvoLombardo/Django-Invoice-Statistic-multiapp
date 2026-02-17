@@ -90,8 +90,6 @@ class AddNewCategoryView(AdminRequiredMixin, View):
         if form.is_valid():
             product= form.save(commit=False)
             product.save()
-            cache.delete('shop_categories')
-            cache.delete('admin_categories')
             messages.success(request,'Hai aggiunto la nuova categoria con successo')
             return redirect('dashboard_shop_menu')
         
@@ -115,8 +113,6 @@ class AddNewProductView(AdminRequiredMixin,View):
         if form.is_valid():
             product= form.save(commit=False)
             product.save()
-            cache.delete('shop_categories')
-            cache.delete(f'category_{product.category.slug}')
             messages.success(request,'Hai aggiunto il nuovo prodotto con successo')
             return redirect('dashboard_shop_menu')
         
@@ -140,8 +136,6 @@ class UpdateProductPage(AdminRequiredMixin, View):
         form = AddOrUpdateNewProductAdmin(request.POST, instance=product)
         if form.is_valid():
             form.save()
-            cache.delete('shop_categories')
-            cache.delete(f'category_{product.category.slug}')
             messages.success(request, f'Prodotto "{product.name}" aggiornato con successo.')
             return redirect('dashboard_shop_menu')
         else:
@@ -199,7 +193,6 @@ def invoice_create(request):
         form = InvoiceAdminForm(request.POST)
         if form.is_valid():
             form.save()
-            cache.delete('invoice_list')
             return redirect('dashboard_invoice_list')
     else:
         form = InvoiceAdminForm()
@@ -215,7 +208,6 @@ def invoice_update(request, pk):
         form = InvoiceAdminForm(request.POST, instance=invoice)
         if form.is_valid():
             form.save()
-            cache.delete('invoice_list')
             return redirect('dashboard_invoice_detail', pk=invoice.pk)
     else:
         form = InvoiceAdminForm(instance=invoice)

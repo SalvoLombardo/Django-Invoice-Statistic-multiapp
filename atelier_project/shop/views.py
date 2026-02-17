@@ -92,7 +92,6 @@ class AddItemToCartView(LoginRequiredMixin, View):
             product.stock -= quantity
             product.save()
 
-            cache.delete(f'category_{product.category.slug}')
             messages.success(request, f"{product.name} added to cart!")
             return redirect('shop_categories_list')
 
@@ -152,9 +151,6 @@ class CartDashboardView(LoginRequiredMixin, View):
             cart.is_active = False
             cart.save()
 
-            # Invalida cache analytics (tutte le chiavi analytics_*)
-            cache.delete_pattern('analytics_*')
-
             messages.success(request, "Success!")
             return redirect('homepage')
         
@@ -186,10 +182,6 @@ class DeactivateCartView(LoginRequiredMixin, View):
 
         cart.is_active=False
         cart.save()
-
-        # Invalida cache categorie (stock aggiornato)
-        cache.delete('shop_categories')
-        cache.delete_pattern('category_*')
 
         messages.success(request,'Carrello cancellato')
         return redirect ('cart_dashboard')
