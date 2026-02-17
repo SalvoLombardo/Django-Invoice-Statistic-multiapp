@@ -19,6 +19,8 @@ from .forms import InvoiceAdminForm
 from users.decorators import admin_required
 from users.mixins import AdminRequiredMixin
 
+from django.core.cache import cache
+
 ######Import for statistics section
 from django.utils import timezone
 from datetime import timedelta
@@ -88,6 +90,8 @@ class AddNewCategoryView(AdminRequiredMixin, View):
         if form.is_valid():
             product= form.save(commit=False)
             product.save()
+            cache.delete('shop_categories')
+            cache.delete('admin_categories')
             messages.success(request,'Hai aggiunto la nuova categoria con successo')
             return redirect('dashboard_shop_menu')
         
@@ -111,6 +115,8 @@ class AddNewProductView(AdminRequiredMixin,View):
         if form.is_valid():
             product= form.save(commit=False)
             product.save()
+            cache.delete('shop_categories')
+            cache.delete(f'category_{product.category.slug}')
             messages.success(request,'Hai aggiunto il nuovo prodotto con successo')
             return redirect('dashboard_shop_menu')
         
@@ -134,6 +140,8 @@ class UpdateProductPage(AdminRequiredMixin, View):
         form = AddOrUpdateNewProductAdmin(request.POST, instance=product)
         if form.is_valid():
             form.save()
+            cache.delete('shop_categories')
+            cache.delete(f'category_{product.category.slug}')
             messages.success(request, f'Prodotto "{product.name}" aggiornato con successo.')
             return redirect('dashboard_shop_menu')
         else:
@@ -143,7 +151,10 @@ class UpdateProductPage(AdminRequiredMixin, View):
 
 @admin_required
 def update_product_category_section(request):
-    categories = Category.objects.all()
+    categories = cache.get('admin_categories')
+    if categories is None:
+        categories = list(Category.objects.all())
+        cache.set('admin_categories', categories, 60 * 60)  # 1 ora
     return render(request, 'dashboard/update_product_category_section.html', {'categories': categories})
 
 @admin_required
@@ -161,8 +172,10 @@ def update_product_product_section(request, slug):
 
 @admin_required
 def invoice_list(request):
-    
-    invoices = Invoice.objects.all().order_by('-date')
+    invoices = cache.get('invoice_list')
+    if invoices is None:
+        invoices = list(Invoice.objects.all().order_by('-date'))
+        cache.set('invoice_list', invoices, 30 * 60)  # 30 min
     return render(request, 'dashboard/invoices/invoice_list.html', {'invoices': invoices})
 
 
@@ -174,11 +187,11 @@ def invoice_detail(request, pk):
 
 @admin_required
 def invoice_create(request):
-    
     if request.method == 'POST':
         form = InvoiceAdminForm(request.POST)
         if form.is_valid():
             form.save()
+            cache.delete('invoice_list')
             return redirect('dashboard_invoice_list')
     else:
         form = InvoiceAdminForm()
@@ -194,6 +207,7 @@ def invoice_update(request, pk):
         form = InvoiceAdminForm(request.POST, instance=invoice)
         if form.is_valid():
             form.save()
+            cache.delete('invoice_list')
             return redirect('dashboard_invoice_detail', pk=invoice.pk)
     else:
         form = InvoiceAdminForm(instance=invoice)
@@ -224,15 +238,22 @@ def analytics_view(request):
     end_date = timezone.now()
 
     form = DateRangeForm(request.GET or None)
-    
+
     if form.is_valid():
         #Getting the real date
         start_date = form.cleaned_data['start_date']
         end_date = form.cleaned_data['end_date']
 
+    # Cache key basata sulle date selezionate
+    cache_key = f'analytics_{start_date.strftime("%Y%m%d")}_{end_date.strftime("%Y%m%d")}'
+    cached = cache.get(cache_key)
 
+    if cached:
+        context = cached
+        context['form'] = form
+        return render(request, 'dashboard/analytics/dashboard_analytics.html', context)
 
-    # We can use Django lookup, 
+    # We can use Django lookup,
 
     # __date is refferring to just 'date' with no time like 22-01-2025(exclute 08:00am)
     # so we're filtering just by date and not time
@@ -246,15 +267,15 @@ def analytics_view(request):
         created_at__date__range=(start_date, end_date)
     )
 
-    
+
     #In daily sales we are aggregating the results that we have in 'orders'
     # taking the queryset 'orders' we are saying the we want a new field called day (annotate(day=...)
     # the queryset now become a series of a dict with 'day' as key.
     # the data that referrs to day  will be truncated with truncDAte (TruncDate('created_at')))
-    # then order by the value of the key 'day' 
+    # then order by the value of the key 'day'
     # the we create a new field called total with annotate(total=Sum('total'))
-    # so the result will be a list of a dict with 2 keys 'day' and 'total' 
-    # 
+    # so the result will be a list of a dict with 2 keys 'day' and 'total'
+    #
     # In this way we obtain every total order by date and now we can create the statistic form
     # to see every single date's data
     ######SQL translation
@@ -285,15 +306,19 @@ def analytics_view(request):
     buffer.seek(0)
     image_png = buffer.getvalue()
     buffer.close()
+    plt.close(fig)
     graphic = base64.b64encode(image_png).decode('utf-8')
 
     context = {
-        'form': form,
         'graphic': graphic,
         'total_orders': orders.count(),
         'total_sales': sum(order.total for order in orders),
     }
 
+    # Cache per 1 ora (grafico + totali)
+    cache.set(cache_key, context, 60 * 60)
+
+    context['form'] = form
     return render(request, 'dashboard/analytics/dashboard_analytics.html', context)
 
 

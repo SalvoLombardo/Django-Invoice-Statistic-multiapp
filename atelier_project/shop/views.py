@@ -5,18 +5,27 @@ from .models import Category, Product, Cart,CartItem, Order, OrderItem
 from .forms import AddItemToCartForm, ConfirmCartForm
 from django.views import View
 from django.contrib import messages
+from django.core.cache import cache
 #*******************************************************************************************************************************
 # SHOP for Not-logged-in User
 #*******************************************************************************************************************************
 def show_shop_categories_list(request):
-    categories = Category.objects.all()
+    categories = cache.get('shop_categories')
+    if categories is None:
+        categories = list(Category.objects.all())
+        cache.set('shop_categories', categories, 60 * 60)  # 1 ora
     return render(request, 'shop/categories_list.html', {'categories': categories})
 
 def show_category_detail(request, slug):
-    category = get_object_or_404(Category, slug=slug)
-    products = Product.objects.filter(category=category, stock__gt=0) #__gt: Queryset for greater then
-    form=AddItemToCartForm()
-    return render(request, 'shop/category_detail.html', {'category': category, 'products': products, 'form': form})
+    cache_key = f'category_{slug}'
+    data = cache.get(cache_key)
+    if data is None:
+        category = get_object_or_404(Category, slug=slug)
+        products = list(Product.objects.filter(category=category, stock__gt=0))
+        data = {'category': category, 'products': products}
+        cache.set(cache_key, data, 30 * 60)  # 30 min
+    form = AddItemToCartForm()
+    return render(request, 'shop/category_detail.html', {**data, 'form': form})
 
 
 class AddItemToCartView(LoginRequiredMixin, View):
@@ -77,6 +86,7 @@ class AddItemToCartView(LoginRequiredMixin, View):
             product.stock -= quantity
             product.save()
 
+            cache.delete(f'category_{product.category.slug}')
             messages.success(request, f"{product.name} added to cart!")
             return redirect('shop_categories_list')
 
@@ -136,6 +146,9 @@ class CartDashboardView(LoginRequiredMixin, View):
             cart.is_active = False
             cart.save()
 
+            # Invalida cache analytics (tutte le chiavi analytics_*)
+            cache.delete_pattern('analytics_*')
+
             messages.success(request, "Success!")
             return redirect('homepage')
         
@@ -167,7 +180,10 @@ class DeactivateCartView(LoginRequiredMixin, View):
 
         cart.is_active=False
         cart.save()
-        
+
+        # Invalida cache categorie (stock aggiornato)
+        cache.delete('shop_categories')
+        cache.delete_pattern('category_*')
 
         messages.success(request,'Carrello cancellato')
         return redirect ('cart_dashboard')
