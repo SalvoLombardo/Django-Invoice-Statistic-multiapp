@@ -1,42 +1,24 @@
-
-    
 {% extends "base.html" %}
-{% load static %}
-
-{% block title %}
-
-{% endblock %}
-
-
-{% block head %}
-
-{% endblock %}
-
-
+{% block title %}Your Appointments{% endblock %}
 {% block content %}
+{% if user.is_authenticated %}
+<h2 class="mb-3">Your Appointments</h2>
+<a href="{% url 'book_appointment_user' %}" class="btn btn-primary mb-4">+ New Appointment</a>
 
-
-    {% if user.is_authenticated %}           
-        <h2>Your appointments</h2>
-        <a href="{% url 'book_appointment_user' %}">+ New appointment</a>
-        <ul>
-        {% for app in appointments %}
-            <li>
-            {{ app.activity }} - {{ app.date }}
-            <a href="{% url 'appointment_update_user' app.pk %}">Edit</a> |
-            <a href="{% url 'appointment_delete_user' app.pk %}">Delete</a>
-            </li>
-        {% empty %}
-            <li>No appointment booked.</li>
-        {% endfor %}
-        </ul>
-
-    {% else %}
-        <p>You're not logged in . <a href="{% url 'login_client' %}">Login here</a></p>
-    
-    
-    {% endif %}
-
-
-
+<div class="list-group">
+    {% for app in appointments %}
+    <div class="list-group-item d-flex justify-content-between align-items-center">
+        <span>{{ app.activity }} &mdash; {{ app.date }}</span>
+        <div>
+            <a href="{% url 'appointment_update_user' app.pk %}" class="btn btn-sm btn-outline-primary me-1">Edit</a>
+            <a href="{% url 'appointment_delete_user' app.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+        </div>
+    </div>
+    {% empty %}
+    <div class="list-group-item text-muted">No appointments booked.</div>
+    {% endfor %}
+</div>
+{% else %}
+<p>You're not logged in. <a href="{% url 'login_client' %}">Login here</a></p>
+{% endif %}
 {% endblock %}

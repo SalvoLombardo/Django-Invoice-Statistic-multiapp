@@ -1,0 +1,201 @@
+/* =========================================
+   ATELIER THEME - Warm Artisanal Bootstrap 5
+========================================= */
+
+:root {
+    --atelier-cream: #FDF6EE;
+    --atelier-beige: #F5E6D3;
+    --atelier-terracotta: #C67B5C;
+    --atelier-terracotta-dark: #A8603F;
+    --atelier-rosa: #D4A0A0;
+    --atelier-rosa-light: #E8C8C8;
+    --atelier-brown: #5C4033;
+    --atelier-brown-light: #8B6F5E;
+    --atelier-white: #FFFBF7;
+    --atelier-gold: #D4A853;
+    --atelier-sage: #A8B5A0;
+    --atelier-sidebar: #3D2B1F;
+}
+
+/* === Body & Typography === */
+body {
+    background-color: var(--atelier-cream);
+    color: var(--atelier-brown);
+    font-family: 'Lato', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Playfair Display', serif;
+    color: var(--atelier-brown);
+}
+
+a {
+    color: var(--atelier-terracotta);
+    transition: color 0.3s ease;
+}
+a:hover {
+    color: var(--atelier-terracotta-dark);
+}
+
+/* === Navbar === */
+.navbar-atelier {
+    background-color: var(--atelier-white);
+    box-shadow: 0 2px 8px rgba(92, 64, 51, 0.06);
+}
+.navbar-atelier .navbar-brand {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    font-weight: 600;
+    color: var(--atelier-brown);
+}
+.navbar-atelier .navbar-brand:hover {
+    color: var(--atelier-terracotta);
+}
+.navbar-atelier .nav-link {
+    color: var(--atelier-brown-light);
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+}
+.navbar-atelier .nav-link:hover,
+.navbar-atelier .nav-link.active {
+    color: var(--atelier-terracotta);
+    background-color: rgba(198, 123, 92, 0.08);
+}
+.navbar-toggler {
+    border-color: var(--atelier-rosa-light);
+}
+
+/* === Buttons === */
+.btn-primary {
+    background-color: var(--atelier-terracotta);
+    border-color: var(--atelier-terracotta);
+    color: #fff;
+}
+.btn-primary:hover, .btn-primary:focus {
+    background-color: var(--atelier-terracotta-dark);
+    border-color: var(--atelier-terracotta-dark);
+    color: #fff;
+}
+.btn-outline-primary {
+    color: var(--atelier-terracotta);
+    border-color: var(--atelier-terracotta);
+}
+.btn-outline-primary:hover {
+    background-color: var(--atelier-terracotta);
+    border-color: var(--atelier-terracotta);
+    color: #fff;
+}
+
+/* === Cards (artisanal style) === */
+.card-atelier {
+    border: 1px solid var(--atelier-rosa-light);
+    border-radius: 12px;
+    background: var(--atelier-white);
+    box-shadow: 0 2px 12px rgba(92, 64, 51, 0.06);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+.card-atelier:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(92, 64, 51, 0.12);
+}
+.card-atelier .card-title {
+    font-family: 'Playfair Display', serif;
+    color: var(--atelier-brown);
+}
+.card-atelier .card-text {
+    color: var(--atelier-brown-light);
+}
+
+/* === Hero Section === */
+.hero-atelier {
+    background: linear-gradient(135deg, var(--atelier-beige) 0%, var(--atelier-rosa-light) 100%);
+    border-radius: 16px;
+    padding: 4rem 2rem;
+    text-align: center;
+}
+.hero-atelier h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3rem;
+    color: var(--atelier-brown);
+}
+.hero-atelier p {
+    color: var(--atelier-brown-light);
+    font-size: 1.2rem;
+}
+
+/* === Form Card === */
+.form-card {
+    background: var(--atelier-white);
+    border-radius: 12px;
+    box-shadow: 0 4px 16px rgba(92, 64, 51, 0.08);
+    padding: 2rem;
+    border: 1px solid var(--atelier-rosa-light);
+}
+
+/* === Tables === */
+.table thead th {
+    background-color: var(--atelier-rosa-light);
+    color: var(--atelier-brown);
+    border-bottom-color: var(--atelier-rosa);
+    font-family: 'Playfair Display', serif;
+    font-weight: 600;
+}
+
+/* === Footer === */
+.footer-atelier {
+    background-color: var(--atelier-brown);
+    color: var(--atelier-beige);
+}
+.footer-atelier a {
+    color: var(--atelier-rosa-light);
+}
+.footer-atelier a:hover {
+    color: #fff;
+}
+
+/* === Toast Messages === */
+.atelier-toast {
+    position: fixed;
+    top: 80px;
+    right: 20px;
+    z-index: 1100;
+    max-width: 350px;
+}
+
+/* === Dashboard Sidebar === */
+.sidebar-atelier {
+    background-color: var(--atelier-sidebar);
+    min-height: 100vh;
+}
+.sidebar-atelier .nav-link {
+    color: var(--atelier-rosa-light);
+    padding: 0.75rem 1.25rem;
+    border-radius: 6px;
+    margin-bottom: 0.25rem;
+    transition: all 0.3s ease;
+}
+.sidebar-atelier .nav-link:hover,
+.sidebar-atelier .nav-link.active {
+    color: #fff;
+    background-color: rgba(198, 123, 92, 0.3);
+}
+.sidebar-atelier h5 {
+    font-family: 'Cormorant Garamond', serif;
+    color: var(--atelier-rosa-light);
+}
+
+/* === Fieldset Legends === */
+fieldset legend {
+    font-family: 'Playfair Display', serif;
+    color: var(--atelier-brown);
+    border-bottom: 1px solid var(--atelier-rosa-light);
+    padding-bottom: 0.5rem;
+    margin-bottom: 1rem;
+}
+
+/* === List Group Artisanal === */
+.list-group-item {
+    border-color: var(--atelier-rosa-light);
+}

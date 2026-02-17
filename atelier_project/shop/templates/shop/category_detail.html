@@ -1,39 +1,30 @@
 {% extends "base.html" %}
-{% load static %}
-
-{% block title %}
-Homepage
-{% endblock %}
-
-{% block head %}
-{% endblock %}
-
+{% block title %}{{ category.name }}{% endblock %}
 {% block content %}
+<h2 class="mb-2">{{ category.name }}</h2>
+<p class="lead text-muted mb-4">{{ category.description }}</p>
 
-    <h2>{{ category.name }}</h2>
-    <p>{{ category.description }}</p>
-
-    <h3>Products</h3>
-
-    {% if products %}
-        <ul>
-            {% for product in products %}
-            <div>
-                <h3>{{ product.name }}</h3>
-                <p>Model: {{ product.model_name }}</p>
-                <p>Color: {{ product.color }}</p>
-                <p>Price: ${{ product.price }}</p>
-
-                <form method="post" action="{% url 'add_to_cart' product.id %}">
+{% if products %}
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    {% for product in products %}
+    <div class="col">
+        <div class="card card-atelier h-100">
+            <div class="card-body">
+                <h5 class="card-title">{{ product.name }}</h5>
+                <p class="card-text mb-1"><strong>Model:</strong> {{ product.model_name }}</p>
+                <p class="card-text mb-1"><strong>Color:</strong> {{ product.color }}</p>
+                <p class="card-text mb-3"><strong>Price:</strong> &euro;{{ product.price }}</p>
+                <form method="post" action="{% url 'add_to_cart' product.id %}" class="d-flex align-items-center gap-2">
                     {% csrf_token %}
                     {{ form.quantity }}
-                    <button type="submit">Add to Cart</button>
+                    <button type="submit" class="btn btn-primary btn-sm">Add to Cart</button>
                 </form>
             </div>
-            {% endfor %}
-        </ul>
-    {% else %}
-        <p>There are no products available for this category.</p>
-    {% endif %}
-
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% else %}
+<div class="alert alert-info">No products available in this category.</div>
+{% endif %}
 {% endblock %}

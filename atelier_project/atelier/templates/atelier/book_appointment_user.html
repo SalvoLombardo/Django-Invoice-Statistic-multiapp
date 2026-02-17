@@ -1,13 +1,17 @@
-{% extends 'base.html' %}
-
-{% block title %}Prenota appuntamento{% endblock %}
-
+{% extends "base.html" %}
+{% load crispy_forms_tags %}
+{% block title %}Book Appointment{% endblock %}
 {% block content %}
-<h2>Book a new appointment</h2>
-
-<form method="post">
-    {% csrf_token %}
-    {{ book_appointment_form.as_p }}
-    <button type="submit">Confirm</button>
-</form>
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="form-card">
+            <h2 class="text-center mb-4">Book a New Appointment</h2>
+            <form method="post">
+                {% csrf_token %}
+                {{ book_appointment_form|crispy }}
+                <button type="submit" class="btn btn-primary w-100 mt-3">Confirm</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,46 +1,47 @@
 {% extends "base.html" %}
 {% block content %}
-<style>
-.dashboard-container {
-    display: flex;
-    min-height: 90vh;
-}
-.sidebar {
-    width: 220px;
-    background-color: #1e1e2f;
-    color: white;
-    padding: 20px;
-}
-.sidebar a {
-    display: block;
-    color: white;
-    text-decoration: none;
-    padding: 8px 0;
-}
-.sidebar a:hover {
-    background-color: #333;
-}
-.dashboard-content {
-    flex: 1;
-    padding: 30px;
-    background-color: #f8f8f8;
-}
-</style>
+<div class="container-fluid">
+    <div class="row">
+        <!-- Sidebar desktop -->
+        <nav class="col-lg-2 d-none d-lg-block sidebar-atelier p-0">
+            <div class="d-flex flex-column p-3">
+                <h5 class="mb-4">Dashboard</h5>
+                <nav class="nav flex-column">
+                    <a class="nav-link" href="{% url 'dashboard_home' %}">Home</a>
+                    <a class="nav-link" href="{% url 'dashboard_shop_menu' %}">Shop</a>
+                    <a class="nav-link" href="{% url 'dashboard_atelier_menu' %}">Atelier</a>
+                    <a class="nav-link" href="{% url 'dashboard_invoice_list' %}">Invoices</a>
+                    <a class="nav-link" href="{% url 'analytics_dashboard' %}">Analytics</a>
+                </nav>
+            </div>
+        </nav>
 
-<div class="dashboard-container">
-    <div class="sidebar">
-        <h3>Dashboard</h3>
-        <a href="{% url 'dashboard_home' %}"> Home</a>
-        <a href="{% url 'dashboard_shop_menu' %}">Shop</a>
-        <a href="{% url 'dashboard_atelier_menu' %}">Atelier</a>
-        <a href="{% url 'dashboard_invoice_list' %}"> Invoices and Estimates</a>
-        <a href="{% url 'analytics_dashboard' %}"> Analytics</a>
+        <!-- Sidebar mobile (offcanvas) -->
+        <div class="d-lg-none p-2">
+            <button class="btn btn-outline-primary btn-sm" type="button" data-bs-toggle="offcanvas" data-bs-target="#sidebarMobile">
+                Menu
+            </button>
+        </div>
+        <div class="offcanvas offcanvas-start" id="sidebarMobile" style="background-color: var(--atelier-sidebar); max-width: 250px;">
+            <div class="offcanvas-header">
+                <h5 class="text-white">Dashboard</h5>
+                <button type="button" class="btn-close btn-close-white" data-bs-dismiss="offcanvas"></button>
+            </div>
+            <div class="offcanvas-body">
+                <nav class="nav flex-column">
+                    <a class="nav-link text-white" href="{% url 'dashboard_home' %}">Home</a>
+                    <a class="nav-link text-white" href="{% url 'dashboard_shop_menu' %}">Shop</a>
+                    <a class="nav-link text-white" href="{% url 'dashboard_atelier_menu' %}">Atelier</a>
+                    <a class="nav-link text-white" href="{% url 'dashboard_invoice_list' %}">Invoices</a>
+                    <a class="nav-link text-white" href="{% url 'analytics_dashboard' %}">Analytics</a>
+                </nav>
+            </div>
+        </div>
 
-
-    </div>
-
-    <div class="dashboard-content">
-        {% block dashboard_content %}{% endblock %}
+        <!-- Main content -->
+        <main class="col-lg-10 p-4">
+            {% block dashboard_content %}{% endblock %}
+        </main>
     </div>
 </div>
 {% endblock %}

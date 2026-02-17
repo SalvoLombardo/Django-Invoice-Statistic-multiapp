@@ -1,15 +1,36 @@
-<!-- templates/dashboard/analytics.html -->
-<h2>Sales statistics</h2>
+{% extends 'dashboard/base_dashboard.html' %}
+{% load crispy_forms_tags %}
+{% block dashboard_content %}
+<h2 class="mb-4">Sales Statistics</h2>
 
-<form method="get">
-  {{ form.as_p }}
-  <button type="submit">Filter</button>
-</form>
+<div class="form-card mb-4" style="max-width: 500px;">
+    <form method="get">
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary mt-2">Filter</button>
+    </form>
+</div>
 
 {% if graphic %}
-  <h3>Tot sales: €{{ total_sales }}</h3>
-  <h4>Tot orders: {{ total_orders }}</h4>
-  <img src="data:image/png;base64,{{ graphic }}" alt="Grafico ">
+    <div class="row row-cols-1 row-cols-md-2 g-3 mb-4">
+        <div class="col">
+            <div class="card card-atelier">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Sales</h5>
+                    <p class="display-6">&euro;{{ total_sales }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <div class="card card-atelier">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Total Orders</h5>
+                    <p class="display-6">{{ total_orders }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+    <img src="data:image/png;base64,{{ graphic }}" alt="Sales Chart" class="img-fluid rounded">
 {% else %}
-  <p>No data available for this interval.</p>
+    <div class="alert alert-info">No data available for this interval.</div>
 {% endif %}
+{% endblock %}

@@ -1,9 +1,9 @@
 {% extends "dashboard/base_dashboard.html" %}
 {% block dashboard_content %}
-<h2>Gestione Shop</h2>
-<ul>
-    <li><a href="{% url 'dashboard_add_category' %}">➕ Add Category</a></li>
-    <li><a href="{% url 'dashboard_add_product' %}">➕ Add Product</a></li>
-    <li><a href="{% url 'dashboard_update_product_category' %}">✏️ Edit product</a></li>
-</ul>
+<h2 class="mb-4">Shop Management</h2>
+<div class="list-group" style="max-width: 400px;">
+    <a href="{% url 'dashboard_add_category' %}" class="list-group-item list-group-item-action">Add Category</a>
+    <a href="{% url 'dashboard_add_product' %}" class="list-group-item list-group-item-action">Add Product</a>
+    <a href="{% url 'dashboard_update_product_category' %}" class="list-group-item list-group-item-action">Edit Product</a>
+</div>
 {% endblock %}

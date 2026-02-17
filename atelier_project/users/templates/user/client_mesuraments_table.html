@@ -1,12 +1,10 @@
-{% extends 'base.html' %}
-{% block title %}Profilo Utente{% endblock %}
-
+{% extends "base.html" %}
+{% block title %}Your Measurements{% endblock %}
 {% block content %}
-<div class="profile-section">
-    <h2>Profilo di {{ user.username }}</h2>
-
-    {% if misure %}
-        <table class="profile-table">
+<h2 class="mb-4">Measurements of {{ user.username }}</h2>
+{% if misure %}
+    <div class="table-responsive">
+        <table class="table table-striped">
             <thead>
                 <tr>
                     <th>Measure</th>
@@ -22,8 +20,8 @@
                 {% endfor %}
             </tbody>
         </table>
-    {% else %}
-        <p>Your measurements have not been recorded yet.</p>
-    {% endif %}
-</div>
+    </div>
+{% else %}
+    <div class="alert alert-info">Your measurements have not been recorded yet.</div>
+{% endif %}
 {% endblock %}

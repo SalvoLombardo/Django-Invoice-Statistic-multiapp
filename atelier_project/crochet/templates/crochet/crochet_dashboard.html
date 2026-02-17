@@ -1,44 +1,21 @@
-
 {% extends "base.html" %}
-{% load static %}
-
-{% block title %}
-Homepage
-{% endblock %}
-
-
-{% block head %}
-
-{% endblock %}
-
-
+{% block title %}SocialCrochet{% endblock %}
 {% block content %}
+{% if user.is_authenticated %}
+<h2 class="mb-3">SocialCrochet</h2>
+<p class="text-muted mb-4">Here you'll find a social network section where every client can post their work made with your products.</p>
 
-
-    {% if user.is_authenticated %}
-    <h4>Here you'll find a social network section where every your client can post his/her work made with your products</h4>
-
-
-    <div class="card-grid">
-        <a href="#" class="card-link">
-            <div class="card-box">
-                <h3>Coming soon</h3>
-                <p>This section will be implemented soon as possible</p>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col">
+        <div class="card card-atelier h-100">
+            <div class="card-body text-center py-4">
+                <h5 class="card-title">Coming Soon</h5>
+                <p class="card-text">This section will be implemented soon</p>
             </div>
-        </a>
-
-       
-
-
+        </div>
     </div>
-
-
-        
-    {% else %}
-        <p>You're not logged in. <a href="{% url 'login_client' %}">Login here</a></p>
-    
-    
-    {% endif %}
-
-
+</div>
+{% else %}
+<p>You're not logged in. <a href="{% url 'login_client' %}">Login here</a></p>
+{% endif %}
 {% endblock %}

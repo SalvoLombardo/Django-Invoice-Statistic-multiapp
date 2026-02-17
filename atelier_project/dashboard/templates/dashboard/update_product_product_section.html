@@ -1,35 +1,17 @@
+{% extends "dashboard/base_dashboard.html" %}
+{% block dashboard_content %}
+<h2 class="mb-2">{{ category.name }}</h2>
+<p class="text-muted mb-4">{{ category.description }}</p>
 
-{% extends "base.html" %}
-{% load static %}
-
-{% block title %}
-Homepage
-{% endblock %}
-
-
-{% block head %}
-
-{% endblock %}
-
-
-{% block content %}
-
-    <h2>{{ category.name }}</h2>
-    <p>{{ category.description }}</p>
-    
-        
-    <h3>Prodotti</h3>
-    <ul>
-        {% for product in products %}
-    <li>
-        {{ product.name }} - {{ product.price }}
-        
-        <a href="{% url 'update_product_page' product.pk %}">Update Product</a>
-    </li>
-{% empty %}
-    <li>Nessun prodotto disponibile in questa categoria.</li>
-{% endfor %}
-    </ul>
-
-
+<h4 class="mb-3">Products</h4>
+<div class="list-group" style="max-width: 600px;">
+    {% for product in products %}
+    <div class="list-group-item d-flex justify-content-between align-items-center">
+        <span>{{ product.name }} &mdash; &euro;{{ product.price }}</span>
+        <a href="{% url 'update_product_page' product.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+    </div>
+    {% empty %}
+    <div class="list-group-item text-muted">No products available in this category.</div>
+    {% endfor %}
+</div>
 {% endblock %}

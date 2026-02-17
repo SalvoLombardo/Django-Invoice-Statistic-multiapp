@@ -1,70 +1,67 @@
-
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}
-Homepage 🚀
-{% endblock %}
-
-
-{% block head %}
-
-{% endblock %}
-
+{% block title %}Homepage{% endblock %}
 
 {% block content %}
 
-
-    {% if user.is_authenticated %}
-        <p>Hello {{ user.username }}!</p>
-        <a href="{% url 'logout' %}">Logout</a>
-
-
-    <br>
-    <br>
-    <br>
-
-    <div class="card-grid">
-        <a href="{% url 'client_mesuraments_table' %}" class="card-link">
-            <div class="card-box">
-                <h3>Your Mesurements</h3>
-                <p>Show/Update your Measurements</p>
-            </div>
-        </a>
-
-        <a href="{% url 'appointment_dashboard' %}" class="card-link">
-            <div class="card-box">
-                <h3>Your appointments</h3>
-                <p>Show/Update your Appointments</p>
-            </div>
-        </a>
-
-       
-
-        <a href="{% url 'crochet_dashboard' %}" class="card-link">
-            <div class="card-box">
-                <h3>SocialCrochet</h3>
-                <p>
-Our social network where you can publish your works</p>
-            </div>
-        </a>
-
-
-    </div>
-
-
-        
-    {% else %}
-        <p>You're not logged in. <a href="{% url 'login_client' %}">Login here</a></p>
-    
-    
+<div class="hero-atelier mb-5">
+    <h1>Welcome to Atelier</h1>
+    <p class="mt-3">Handmade with love &mdash; your tailor-made clothing destination</p>
+    {% if not user.is_authenticated %}
+        <a href="{% url 'login_client' %}" class="btn btn-primary btn-lg mt-3">Get Started</a>
     {% endif %}
+</div>
 
-        <a href="{% url 'shop_categories_list' %}" class="card-link">
-            <div class="card-box">
-                <h3>Shop Online</h3>
-                <p>Our Shop Online</p>
+{% if user.is_authenticated %}
+    <h2 class="mb-4">Hello, {{ user.username }}!</h2>
+    <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4 mb-4">
+        <div class="col">
+            <a href="{% url 'client_mesuraments_table' %}" class="text-decoration-none">
+                <div class="card card-atelier h-100">
+                    <div class="card-body text-center py-4">
+                        <h5 class="card-title">Your Measurements</h5>
+                        <p class="card-text">Show/Update your Measurements</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="{% url 'appointment_dashboard' %}" class="text-decoration-none">
+                <div class="card card-atelier h-100">
+                    <div class="card-body text-center py-4">
+                        <h5 class="card-title">Your Appointments</h5>
+                        <p class="card-text">Show/Update your Appointments</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+        <div class="col">
+            <a href="{% url 'crochet_dashboard' %}" class="text-decoration-none">
+                <div class="card card-atelier h-100">
+                    <div class="card-body text-center py-4">
+                        <h5 class="card-title">SocialCrochet</h5>
+                        <p class="card-text">Our social network where you can publish your works</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    </div>
+{% else %}
+    <p class="text-center text-muted mb-4">You're not logged in. <a href="{% url 'login_client' %}">Login here</a> to access all features.</p>
+{% endif %}
+
+<div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+    <div class="col">
+        <a href="{% url 'shop_categories_list' %}" class="text-decoration-none">
+            <div class="card card-atelier h-100">
+                <div class="card-body text-center py-4">
+                    <h5 class="card-title">Shop Online</h5>
+                    <p class="card-text">Our Shop Online</p>
+                </div>
             </div>
         </a>
+    </div>
+</div>
 
 {% endblock %}

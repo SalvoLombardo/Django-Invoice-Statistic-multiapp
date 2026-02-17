@@ -1,9 +1,12 @@
 {% extends 'dashboard/base_dashboard.html' %}
-{% block content %}
-<h2>{% if form.instance.pk %}Edit Invoice{% else %}Create New Invoice{% endif %}</h2>
-<form method="post">
-  {% csrf_token %}
-  {{ form.as_p }}
-  <button type="submit">Save</button>
-</form>
+{% load crispy_forms_tags %}
+{% block dashboard_content %}
+<h2 class="mb-4">{% if form.instance.pk %}Edit Invoice{% else %}Create New Invoice{% endif %}</h2>
+<div class="form-card" style="max-width: 600px;">
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <button type="submit" class="btn btn-primary mt-3">Save</button>
+    </form>
+</div>
 {% endblock %}

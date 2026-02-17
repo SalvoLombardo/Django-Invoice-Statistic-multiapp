@@ -1,10 +1,16 @@
 {% extends 'dashboard/base_dashboard.html' %}
-{% block content %}
-<h2>{{ invoice.get_document_type_display }} #{{ invoice.id }}</h2>
-<p><b>Client:</b> {{ invoice.user.username }}</p>
-<p><b>Data:</b> {{ invoice.date }}</p>
-<p><b>Amount.:</b> €{{ invoice.amount }}</p>
-<p><b>Description:</b> {{ invoice.description|default:"—" }}</p>
-<a href="{% url 'dashboard_invoice_pdf' invoice.pk %}" target="_blank">📄 Download PDF</a> |
-<a href="{% url 'dashboard_invoice_update' invoice.pk %}">✏️ Edit</a>
+{% block dashboard_content %}
+<h2 class="mb-4">{{ invoice.get_document_type_display }} #{{ invoice.id }}</h2>
+<div class="card card-atelier" style="max-width: 600px;">
+    <div class="card-body">
+        <p><strong>Client:</strong> {{ invoice.user.username }}</p>
+        <p><strong>Date:</strong> {{ invoice.date }}</p>
+        <p><strong>Amount:</strong> &euro;{{ invoice.amount }}</p>
+        <p><strong>Description:</strong> {{ invoice.description|default:"&mdash;" }}</p>
+        <div class="d-flex gap-2 mt-3">
+            <a href="{% url 'dashboard_invoice_pdf' invoice.pk %}" target="_blank" class="btn btn-primary">Download PDF</a>
+            <a href="{% url 'dashboard_invoice_update' invoice.pk %}" class="btn btn-outline-primary">Edit</a>
+        </div>
+    </div>
+</div>
 {% endblock %}

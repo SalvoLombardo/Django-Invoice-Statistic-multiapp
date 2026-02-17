@@ -1,50 +1,31 @@
-
 {% extends "base.html" %}
-{% load static %}
-
-{% block title %}
-Homepage
-{% endblock %}
-
-
-{% block head %}
-
-{% endblock %}
-
-
+{% block title %}Appointments{% endblock %}
 {% block content %}
-
-
-    {% if user.is_authenticated %}
-       
-
-
-    <div class="card-grid">
-        <a href="{% url 'book_appointment_user' %}" class="card-link">
-            <div class="card-box">
-                <h3>New appointment </h3>
-                <p>Create a new appointment</p>
+{% if user.is_authenticated %}
+<h2 class="mb-4">Appointments</h2>
+<div class="row row-cols-1 row-cols-md-2 g-4">
+    <div class="col">
+        <a href="{% url 'book_appointment_user' %}" class="text-decoration-none">
+            <div class="card card-atelier h-100">
+                <div class="card-body text-center py-4">
+                    <h5 class="card-title">New Appointment</h5>
+                    <p class="card-text">Create a new appointment</p>
+                </div>
             </div>
         </a>
-
-        <a href="{% url 'appointment_list_user' %}" class="card-link">
-            <div class="card-box">
-                <h3>User appointments</h3>
-                <p>View or Update your appointments</p>
-            </div>
-        </a>
-
-
-
     </div>
-
-
-        
-    {% else %}
-        <p>You're not logged in. <a href="{% url 'login_client' %}">Login here</a></p>
-    
-    
-    {% endif %}
-
-
+    <div class="col">
+        <a href="{% url 'appointment_list_user' %}" class="text-decoration-none">
+            <div class="card card-atelier h-100">
+                <div class="card-body text-center py-4">
+                    <h5 class="card-title">Your Appointments</h5>
+                    <p class="card-text">View or Update your appointments</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+{% else %}
+<p>You're not logged in. <a href="{% url 'login_client' %}">Login here</a></p>
+{% endif %}
 {% endblock %}

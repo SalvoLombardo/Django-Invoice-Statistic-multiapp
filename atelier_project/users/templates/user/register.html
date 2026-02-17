@@ -1,25 +1,24 @@
 {% extends "base.html" %}
-{% block title %}
-Registrazione Cliente
-{% endblock %}
-
-
-{% block head %}
-{% endblock %}
-
-
+{% load crispy_forms_tags %}
+{% block title %}Registration{% endblock %}
 {% block content %}
-<h2>New customer registration</h2>
-    <form method="POST">
-        {% csrf_token %}
-        <fieldset>
-            <legend>User data</legend>
-            {{ user_form.as_p }}
-        </fieldset>
-        <fieldset>
-            <legend>Client Data</legend>
-            {{ client_form.as_p }}
-        </fieldset>
-        <button type="submit">Register</button>
-    </form>
+<div class="row justify-content-center">
+    <div class="col-md-8 col-lg-6">
+        <div class="form-card">
+            <h2 class="text-center mb-4">New Customer Registration</h2>
+            <form method="POST">
+                {% csrf_token %}
+                <fieldset class="mb-4">
+                    <legend class="h5 mb-3">User Data</legend>
+                    {{ user_form|crispy }}
+                </fieldset>
+                <fieldset class="mb-4">
+                    <legend class="h5 mb-3">Client Data</legend>
+                    {{ client_form|crispy }}
+                </fieldset>
+                <button type="submit" class="btn btn-primary w-100 mt-3">Register</button>
+            </form>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,43 +1,39 @@
-
 {% extends "base.html" %}
-{% load static %}
-
-{% block title %}
-Homepage
-{% endblock %}
-
-
-{% block head %}
-
-{% endblock %}
-
-
+{% load crispy_forms_tags %}
+{% block title %}Your Cart{% endblock %}
 {% block content %}
-    <h2>Your Cart</h2>
-        {% if cart_items %}
-            {% for item in cart_items %}
-                <div class="profile-section">
-                    {{ item.product.name }} ({{ item.quantity }})
-                </div>
-            {% endfor %}
-
-
-            <form method="post" action="{% url 'cart_dashboard' %}">
-                {% csrf_token %}
-                {{ form_confirm.as_p }}
-            <button type="submit">Confirm Cart</button>
-            </form>
-
-            <form method="post" action="{% url 'deactivate_cart' carts.pk %}">
-                {% csrf_token %}
-            <button type="submit">Delete Cart</button>
-            </form>
-    
-    
-        {% else %}
-            <p>There are no elements</p>
-        {% endif %}
-
-
-
+<h2 class="mb-4">Your Cart</h2>
+{% if cart_items %}
+    <div class="table-responsive mb-4">
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th>Product</th>
+                    <th>Quantity</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart_items %}
+                <tr>
+                    <td>{{ item.product.name }}</td>
+                    <td>{{ item.quantity }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+    <div class="d-flex gap-2">
+        <form method="post" action="{% url 'cart_dashboard' %}">
+            {% csrf_token %}
+            {{ form_confirm|crispy }}
+            <button type="submit" class="btn btn-primary">Confirm Cart</button>
+        </form>
+        <form method="post" action="{% url 'deactivate_cart' carts.pk %}">
+            {% csrf_token %}
+            <button type="submit" class="btn btn-outline-danger">Delete Cart</button>
+        </form>
+    </div>
+{% else %}
+    <div class="alert alert-info">Your cart is empty.</div>
+{% endif %}
 {% endblock %}

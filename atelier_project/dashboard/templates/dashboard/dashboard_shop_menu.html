@@ -1,61 +1,36 @@
-{% extends "base.html" %}
-{% load static %}
-
-{% block title %}
-Homepage
-{% endblock %}
-
-
-{% block head %}
-
-{% endblock %}
-
-
-{% block content %}
-
-
-    {% if user.is_authenticated %}
-        <p>Hello {{ user.username }}!</p>
-        <a href="{% url 'logout' %}">Logout</a>
-
-
-    <br>
-    <br>
-    <br>
-
-    <div class="card-grid">
-        <a href="{% url 'add_new_product'%}" class="card-link">
-            <div class="card-box">
-                <h3>Add a new product</h3>
-                <p>Add a new product to the shop</p>
+{% extends "dashboard/base_dashboard.html" %}
+{% block dashboard_content %}
+<h2 class="mb-4">Shop Management</h2>
+<div class="row row-cols-1 row-cols-md-3 g-4">
+    <div class="col">
+        <a href="{% url 'add_new_product' %}" class="text-decoration-none">
+            <div class="card card-atelier h-100">
+                <div class="card-body text-center py-4">
+                    <h5 class="card-title">Add a New Product</h5>
+                    <p class="card-text">Add a new product to the shop</p>
+                </div>
             </div>
         </a>
-
-        <a href="{% url 'update_product_category_section' %}" class="card-link">
-            <div class="card-box">
-                <h3>Edit a product</h3>
-                <p>Edit a product in the shop</p>
-            </div>
-        </a>
-
-        <a href="{% url 'add_new_category' %}" class="card-link">
-            <div class="card-box">
-                <h3>Add Category</h3>
-            </div>
-        </a>
-
-        
     </div>
-
-
-        
-    {% else %}
-        <p>Non sei loggato. <a href="{% url 'login_client' %}">Accedi qui</a></p>
-    
-    
-    {% endif %}
-
-
-
- 
+    <div class="col">
+        <a href="{% url 'update_product_category_section' %}" class="text-decoration-none">
+            <div class="card card-atelier h-100">
+                <div class="card-body text-center py-4">
+                    <h5 class="card-title">Edit a Product</h5>
+                    <p class="card-text">Edit a product in the shop</p>
+                </div>
+            </div>
+        </a>
+    </div>
+    <div class="col">
+        <a href="{% url 'add_new_category' %}" class="text-decoration-none">
+            <div class="card card-atelier h-100">
+                <div class="card-body text-center py-4">
+                    <h5 class="card-title">Add Category</h5>
+                    <p class="card-text">Create a new product category</p>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
 {% endblock %}

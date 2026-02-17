@@ -1,27 +1,15 @@
-
-{% extends "base.html" %}
-{% load static %}
-
-{% block title %}
-Homepage
-{% endblock %}
-
-
-{% block head %}
-
-{% endblock %}
-
-
-{% block content %}
-
-
-<h2>Modifica prodotto</h2>
-
-<form method="post">
-    {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save changes</button>
-    <a href="{% url 'dashboard_shop_menu' %}">Abort</a>
-</form>
-
+{% extends "dashboard/base_dashboard.html" %}
+{% load crispy_forms_tags %}
+{% block dashboard_content %}
+<h2 class="mb-4">Edit Product</h2>
+<div class="form-card" style="max-width: 600px;">
+    <form method="post">
+        {% csrf_token %}
+        {{ form|crispy }}
+        <div class="d-flex gap-2 mt-3">
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+            <a href="{% url 'dashboard_shop_menu' %}" class="btn btn-outline-secondary">Cancel</a>
+        </div>
+    </form>
+</div>
 {% endblock %}
